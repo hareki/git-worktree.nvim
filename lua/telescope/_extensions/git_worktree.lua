@@ -132,7 +132,15 @@ local create_worktree = function(opts)
             create_input_prompt(function(name)
                 if name == '' then
                     name = branch
+                elseif name == '..' then
+                    name = '../' .. branch
+                else
+                    -- Replace "$1" with the actual branch name
+                    name = name:gsub('%$1', branch)
                 end
+
+                print(string.format('Creating worktree: %s', name))
+
                 git_worktree.create_worktree(name, branch)
             end)
         end)
