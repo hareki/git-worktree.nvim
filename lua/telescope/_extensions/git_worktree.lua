@@ -130,6 +130,9 @@ local delete_worktree = function(prompt_bufnr)
     end
 end
 
+-- Old logic from my fork in case I need it later:
+-- https://github.com/polarmutex/git-worktree.nvim/blob/bec4270819560f9c44b7fc5423b99930b0635512/lua/telescope/_extensions/git_worktree.lua
+
 -- Create a prompt to get the path of the new worktree
 -- @param cb function: the callback to call with the path
 -- @return nil
