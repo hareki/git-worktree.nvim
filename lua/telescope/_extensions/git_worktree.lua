@@ -308,14 +308,7 @@ local telescope_git_worktree = function(opts)
             attach_mappings = function(_, map)
                 action_set.select:replace(switch_worktree)
 
-                map('i', '<m-c>', function()
-                    telescope_create_worktree {}
-                end)
-                map('n', '<m-c>', function()
-                    telescope_create_worktree {}
-                end)
-                map('i', '<m-d>', delete_worktree)
-                map('n', '<m-d>', delete_worktree)
+                map('n', 'x', delete_worktree)
                 map('i', '<c-f>', toggle_forced_deletion)
                 map('n', '<c-f>', toggle_forced_deletion)
 
