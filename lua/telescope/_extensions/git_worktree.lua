@@ -165,7 +165,7 @@ local create_input_prompt = function(opts, cb)
         return
     end
 
-    local confirmed = vim.fn.input('Track an upstream? [y/n]: ')
+    local confirmed = Config.prefill_upstream and 'y' or vim.fn.input('Track an upstream? [y/n]: ')
     if string.sub(string.lower(confirmed), 0, 1) == 'y' then
         opts.attach_mappings = function()
             actions.select_default:replace(function(prompt_bufnr, _)
@@ -177,7 +177,10 @@ local create_input_prompt = function(opts, cb)
             end)
             return true
         end
-        require('telescope.builtin').git_branches(opts)
+        local default_text = Config.prefill_upstream and opts.branch or ''
+        require('telescope.builtin').git_branches(
+            vim.tbl_extend('keep', opts, { pattern = 'refs/remotes', default_text = default_text }) -- Show only remote branches
+        )
     else
         cb(path, nil)
     end
@@ -227,7 +230,7 @@ local telescope_create_worktree = function(opts)
     -- TODO: A corner case here is that of a new bare repo which has no branch nor tree,
     -- but user may want to create one using this picker when creating the first worktree.
     -- Perhaps telescope git_branches should only be used for selecting the upstream to track.
-    require('telescope.builtin').git_branches(opts)
+    require('telescope.builtin').git_branches(vim.tbl_extend('keep', opts, { show_remote_tracking_branches = false })) -- Show only local branches
 end
 
 -- List the git worktrees

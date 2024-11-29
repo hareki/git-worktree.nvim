@@ -75,6 +75,7 @@ GitWorktreeConfig                                            *GitWorktreeConfig*
         {clearjumps_on_change}         (boolean)  clear jump list on change
         {confirm_telescope_deletions}  (boolean)  confirm telescope deletions operations
         {autopush}                     (boolean)  automatically push worktree to origin repo
+        {prefill_upstream}	       (boolean)  automatically prefill the upstream branch with the same name as the selected one 
 
 
 ==============================================================================

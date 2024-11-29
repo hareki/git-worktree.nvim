@@ -29,11 +29,12 @@
 ---@brief ]]
 
 ---@class GitWorktreeConfig
----@field change_directory_command string command to change directory on your OS
----@field update_on_change_command string vim command to call to switch file buffer to new git-worktree
----@field clearjumps_on_change boolean clear jump list on change
----@field confirm_telescope_deletions boolean confirm telescope deletions operations
----@field autopush boolean automatically push worktree to origin repo
+---@field change_directory_command? string command to change directory on your OS
+---@field update_on_change_command? string vim command to call to switch file buffer to new git-worktree
+---@field clearjumps_on_change? boolean clear jump list on change
+---@field confirm_telescope_deletions? boolean confirm telescope deletions operations
+---@field autopush? boolean automatically push worktree to origin repo
+---@field prefill_upstream? boolean automatically prefill the upstream branch with the same name as the selected one
 
 ---@type (fun():GitWorktreeConfig) | GitWorktreeConfig | nil
 vim.g.git_worktree = vim.g.git_worktree
@@ -59,6 +60,10 @@ local GitWorktreeDefaultConfig = {
     -- automatically push worktree to origin repo
     --- @type boolean
     autopush = false,
+
+    -- automatically prefill the upstream branch with the same name as the selected one
+    ---@type boolean
+    prefill_upstream = false,
 }
 
 local git_worktree = vim.g.git_worktree or {}
