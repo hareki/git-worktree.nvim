@@ -21,7 +21,6 @@
 ---    update_on_change_command = 'e .',
 ---    clearjumps_on_change = true,
 ---    confirm_telescope_deletions = true,
----    autopush = false,
 --- }
 ---<
 ---
@@ -33,8 +32,8 @@
 ---@field update_on_change_command? string vim command to call to switch file buffer to new git-worktree
 ---@field clearjumps_on_change? boolean clear jump list on change
 ---@field confirm_telescope_deletions? boolean confirm telescope deletions operations
----@field autopush? boolean automatically push worktree to origin repo
 ---@field prefill_upstream? boolean automatically prefill the upstream branch with the same name as the selected one
+---@field auto_set_upstream? boolean automatically set the upstream branch if there's only one matching remote branch with the selected one
 
 ---@type (fun():GitWorktreeConfig) | GitWorktreeConfig | nil
 vim.g.git_worktree = vim.g.git_worktree
@@ -64,6 +63,10 @@ local GitWorktreeDefaultConfig = {
     -- automatically prefill the upstream branch with the same name as the selected one
     ---@type boolean
     prefill_upstream = false,
+
+    -- automatically set the upstream branch if there's only one matching remote branch with the selected one
+    ---@type boolean
+    auto_set_upstream = false,
 }
 
 local git_worktree = vim.g.git_worktree or {}

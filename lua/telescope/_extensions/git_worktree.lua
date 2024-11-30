@@ -158,11 +158,14 @@ local create_input_prompt = function(opts, cb)
         return
     end
 
-    local re = string.format('git branch --remotes --list %s', opts.branch)
-    local remote_branch = vim.fn.systemlist(re)
-    if #remote_branch == 1 then
-        cb(path, nil)
-        return
+    -- Try to set the upstream if there's only one matching remote branch
+    if Config.auto_set_upstream then
+        local remote_branches = vim.fn.systemlist('git branch --remotes --list ' .. "'*/" .. opts.branch .. "'")
+        if #remote_branches == 1 then
+            local upstream = vim.trim(remote_branches[1]):gsub('^%*%s*', '')
+            cb(path, upstream)
+            return
+        end
     end
 
     local confirmed = Config.prefill_upstream and 'y' or vim.fn.input('Track an upstream? [y/n]: ')
